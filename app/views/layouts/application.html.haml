@@ -1,0 +1,20 @@
+!!!
+%html{:dir => "ltr", :lang => "en-US", :xmlns => "http://www.w3.org/1999/xhtml"}
+  %head{:profile => "http://gmpg.org/xfn/11"}
+    %title Authlogic Connect Example
+    = render :partial => "shared/head"
+  %body
+    #wrapper
+      = render :partial => "shared/logo"
+      #page-container
+        %ul#page.container
+          %li
+            .content
+              = yield
+        .shadow
+      - if current_user
+        .actions
+          %a.nice{:href => edit_user_path(@user)} Edit
+          %a.nice{:href => logout_path} Logout
+
+    = render :partial => "shared/github"
