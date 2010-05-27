@@ -2,6 +2,11 @@ class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
   before_filter :admin_only, :only => :detonate
+  before_filter :show_sesh
+  
+  def show_sesh
+    #puts "SESH: #{session.inspect}"
+  end
   
   def new
     @user = User.new
@@ -43,6 +48,7 @@ class UsersController < ApplicationController
   
   # for debugging...
   def detonate
+    session.clear
     User.all.collect(&:destroy)
     redirect_to signup_url
   end

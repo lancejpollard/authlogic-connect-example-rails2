@@ -11,4 +11,5 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
   
   map.profile ':id', :controller => :users, :action => :show
+  map.root :controller => 'users'
 end

@@ -30,7 +30,7 @@ Rails::Initializer.run do |config|
   config.gem "oauth"
   config.gem "oauth2" # facebook only
   config.gem "authlogic-connect"
-
+  
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -72,3 +72,4 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 end
+OpenIdAuthentication.store = :file
