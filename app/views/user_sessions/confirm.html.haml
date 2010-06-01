@@ -1,0 +1,14 @@
+%h2 Confirm
+%form.authentication_form{:action => signup_url, :method => :post}
+  %fieldset
+    / authentication_type should be "user" or "session", based on controller
+    - transfer = case session[:auth_method]
+      - when "oauth"
+        - %w(_key _token _secret auth_method oauth_provider)
+      - when "openid"
+        - %w(auth_method openid_identifier)
+    - transfer.each do |hidden|
+      %input{:type => :hidden, :name => hidden.to_sym, :value => session[hidden.to_sym]}
+    %input{:type => :hidden, :name => :authentication_type, :value => :user}
+    %input{:type => :text, :name => "user[email]"}
+  %input.submit{:name => :submit, :type => :submit, :value => "Register"}/

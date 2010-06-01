@@ -2,11 +2,6 @@ class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
   before_filter :admin_only, :only => :detonate
-  before_filter :show_sesh
-  
-  def show_sesh
-    #puts "SESH: #{session.inspect}"
-  end
   
   def new
     @user = User.new
@@ -20,7 +15,7 @@ class UsersController < ApplicationController
         flash[:notice] = "Account registered!"
         redirect_back_or_default profile_url(@user)
       else
-        render :action => :new
+        redirect_to login_url
       end
     end
   end
@@ -35,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    return create unless @current_user
     @user = @current_user # makes our views "cleaner" and more consistent
     @user.update_attributes(params[:user]) do |result|
       if result
@@ -50,6 +46,6 @@ class UsersController < ApplicationController
   def detonate
     session.clear
     User.all.collect(&:destroy)
-    redirect_to signup_url
+    redirect_to login_url
   end
 end

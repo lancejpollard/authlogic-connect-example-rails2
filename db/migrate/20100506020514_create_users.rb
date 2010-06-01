@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       # authlogic
       t.timestamps
       t.string :login, :null => true
+      t.string :email, :null => true
       t.string :crypted_password, :null => true
       t.string :password_salt, :null => true
       t.string :persistence_token, :null => false
@@ -22,7 +23,7 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, :last_request_at
     add_index :users, :active_token_id
   end
-
+  
   def self.down
     drop_table :users
   end
